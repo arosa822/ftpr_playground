@@ -199,8 +199,12 @@ class Scraper:
             Status string: 'success', 'failure', 'pending', etc.
         """
         # Try Check Runs API first (for GitHub Actions)
+        logger.info(f"Fetching check runs from {base_url} for {sha}")
         check_runs_url = f"{base_url}/repos/{repo_path}/commits/{sha}/check-runs"
         response = self._make_request(check_runs_url, headers)
+        # breakpoint()
+        # for ci in response.json().get('check_runs',[]):
+        #     logger.info(f"Check run: {ci['name']} - Conclusion: {ci['conclusion']}")
 
         if response and response.json():
             check_runs = response.json().get('check_runs', [])
@@ -214,6 +218,7 @@ class Scraper:
 
         # Fallback to Status API (for other CI systems)
         status_url = f"{base_url}/repos/{repo_path}/commits/{sha}/status"
+        logger.info(f"**failback** Fetching status from {status_url}")
         response = self._make_request(status_url, headers)
 
         if response and response.json():
