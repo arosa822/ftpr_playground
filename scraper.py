@@ -295,7 +295,7 @@ class Scraper:
         page = 1
         per_page = 100
 
-        while True:
+        while (page-1)*per_page < PR_LIMIT:
             url = f"{base_url}/api/v4/projects/{project_id}/merge_requests"
             params = {
                 'state': 'all',
@@ -418,17 +418,6 @@ class Scraper:
             List of result dictionaries
         """
         return self.results
-
-    # Placeholder for future Slack notification method
-    def send_slack_notification(self, webhook_url: str):
-        """
-        Send summary results to Slack (to be implemented).
-
-        Args:
-            webhook_url: Slack webhook URL
-        """
-        # TODO: Implement Slack notification
-        pass
 
 
 if __name__ == "__main__":
