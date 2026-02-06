@@ -30,9 +30,9 @@ scraper.print_summary()
 # Get raw results for further processing
 results = scraper.get_results()
 
-# Example: Filter repos with low pass rate
-low_performers = [r for r in results if r['pass_rate'] < 80]
+# Example: Filter repos with FTPR < 80%
+low_performers = [r for r in results if r['ftpr'] < 80]
 if low_performers:
-    print("\n Repositories with pass rate < 80%:")
+    print("\nRepositories with FTPR < 80%:")
     for repo in low_performers:
-        print(f"  - {repo['repo_name']}: {repo['pass_rate']}%")
+        print(f"  - {repo['repo_name']}: {repo['ftpr']}%")
